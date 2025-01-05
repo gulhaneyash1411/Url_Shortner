@@ -12,7 +12,7 @@ export async function getUrls(user_id) {
     }
     return data;
 }
-
+    
 export async function deleteUrl(id) {
     const { data , error } = await supabase
     .from("urls")
