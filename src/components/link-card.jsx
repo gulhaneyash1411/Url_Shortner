@@ -4,7 +4,25 @@ import { Button } from './ui/button';
 import { Copy, Delete, Download } from 'lucide-react';
 
 const LinkCard = ({url, fetchUrls}) => {
-  return <div className='flex flex-col md:flex-row gap-5 border p-4 bg-gray-900 rounded-lg'>
+
+    const downloadImage = () => {
+        const imageUrl = url?.qr;
+        const fileName = url?.title;
+
+        const anchor = document.createElement("a");
+        anchor.href = imageUrl;
+        anchor.download = fileName;
+
+        document.body.appendChild(anchor);
+
+        anchor.click();
+
+        document.body.removeChild(anchor);
+    }
+
+  return  (
+
+  <div className='flex flex-col md:flex-row gap-5 border p-4 bg-gray-900 rounded-lg'>
     <img 
     src={url?.qr} 
     className='h-32 object-contain ring ring-blue-500 self-start'
@@ -24,23 +42,24 @@ const LinkCard = ({url, fetchUrls}) => {
         </span>
     </Link>
 
-    <div className='flex gap-2'>
-        <Button variant="ghost"
-            onClick={() => 
-                navigator.clipboard.writeText(`https://trimrr.in/${url?.short_url}`)
-            }
-        >
-            <Copy />
-        </Button>
-        <Button variant="ghost">
-            <Download />
-        </Button>
-        <Button variant="ghost">
-            <Delete />
-        </Button>
+        <div className='flex gap-2'>
+            <Button variant="ghost"
+                onClick={() => 
+                    navigator.clipboard.writeText(`https://trimrr.in/${url?.short_url}`)
+                }
+            >
+                <Copy />
+            </Button>
+            <Button variant="ghost" onClick={downloadImage}>
+                <Download />
+            </Button>
+            <Button variant="ghost">
+                <Delete />
+            </Button>
+        </div>
     </div>
-  </div>
-  
+    )
+
 }
 
 export default LinkCard;
