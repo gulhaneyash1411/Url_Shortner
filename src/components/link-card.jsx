@@ -25,7 +25,11 @@ const LinkCard = ({url, fetchUrls}) => {
     </Link>
 
     <div className='flex gap-2'>
-        <Button variant="ghost">
+        <Button variant="ghost"
+            onClick={() => 
+                navigator.clipboard.writeText(`https://trimrr.in/${url?.short_url}`)
+            }
+        >
             <Copy />
         </Button>
         <Button variant="ghost">
